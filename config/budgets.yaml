@@ -1,0 +1,12 @@
+# Monthly budgets per team, measured in USD of (actual + shadow) cost. See ADR-0003.
+period: monthly
+soft_limit_pct: 80            # above this, responses carry X-Tollgate-Budget-State: soft_limit
+default_limit_usd: 5.00       # teams not listed here get this limit (no unlimited teams)
+
+teams:
+  lending-ops:
+    limit_usd: 50.00
+  marketing:
+    limit_usd: 10.00
+  data-science:
+    limit_usd: 0.01           # deliberately tiny so the demo can show a hard-limit 429

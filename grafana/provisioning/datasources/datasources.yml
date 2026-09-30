@@ -1,0 +1,18 @@
+apiVersion: 1
+datasources:
+  - name: Prometheus
+    uid: prometheus
+    type: prometheus
+    url: http://prometheus:9090
+    isDefault: true
+  - name: Tollgate Postgres
+    uid: postgres
+    type: grafana-postgresql-datasource
+    url: postgres:5432
+    user: tollgate
+    secureJsonData:
+      password: tollgate
+    jsonData:
+      database: tollgate
+      sslmode: disable
+      postgresVersion: 1600

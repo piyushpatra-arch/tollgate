@@ -1,0 +1,30 @@
+# Model tiers. The router picks a tier; the tier maps to a LiteLLM model string.
+# Moving to the cloud is a config change, e.g. litellm_model: bedrock/<model-id>  (ADR-0001, ADR-0007)
+#
+# Pick Ollama models that fit your machine: ~3B for "small"; 8B (16 GB RAM) or 14B (32 GB+) for "large".
+tiers:
+  small:
+    litellm_model: ollama_chat/llama3.2:3b
+    shadow_reference: small-cloud-equivalent
+  large:
+    litellm_model: ollama_chat/llama3.1:8b
+    shadow_reference: large-cloud-equivalent
+  experimental:
+    # Stand-in for a model that has not completed validation. Policy only approves it for
+    # low-risk apps. Points at the small model so the demo needs no extra download.
+    litellm_model: ollama_chat/llama3.2:3b
+    shadow_reference: small-cloud-equivalent
+
+routing:
+  # task (X-Tollgate-Task header) -> tier
+  task_tiers:
+    extract: small
+    classify: small
+    summarize: small
+    draft: small
+    assess: large
+  default_tier: small
+  # Used when the chosen tier returns invalid JSON for a JSON-mode request.
+  fallback_tier: large
+  # If the preferred tier is not approved for the app, try these in order.
+  preference: [large, small, experimental]

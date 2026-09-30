@@ -1,0 +1,22 @@
+# Registered applications. Each app belongs to a team (for chargeback) and has a risk tier
+# (drives model approvals in policies/tollgate.rego).
+#
+# DEMO KEYS ONLY. In a real deployment keys come from a secrets manager, never from git.
+apps:
+  - name: kyc-review
+    team: lending-ops
+    risk_tier: high
+    restricted_data_approved: true   # may send SSNs / account numbers (they are still redacted)
+    api_key: tg-dev-kyc-review
+
+  - name: marketing-copy
+    team: marketing
+    risk_tier: low
+    restricted_data_approved: false
+    api_key: tg-dev-marketing-copy
+
+  - name: ds-sandbox
+    team: data-science
+    risk_tier: medium
+    restricted_data_approved: false
+    api_key: tg-dev-ds-sandbox

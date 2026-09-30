@@ -1,0 +1,23 @@
+# Shadow price catalog (ADR-0003).
+# Local models cost nothing per token, so every call is also priced against a comparable
+# cloud model. This answers: "what would this workload cost if we moved it to the cloud?"
+#
+# ILLUSTRATIVE PRICES. Replace with current list prices from your provider's pricing page
+# before quoting any numbers publicly.
+currency: USD
+unit: per_million_tokens
+
+references:
+  small-cloud-equivalent:
+    description: Small/fast hosted model class
+    input: 1.00
+    output: 5.00
+  large-cloud-equivalent:
+    description: Mid/large hosted model class
+    input: 3.00
+    output: 15.00
+
+# Optional: attribute local compute cost as well (e.g. amortized GPU/laptop cost per second).
+local_compute:
+  enabled: false
+  usd_per_second: 0.0
